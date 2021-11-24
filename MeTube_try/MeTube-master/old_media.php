@@ -1,17 +1,11 @@
-\<!-- 
-media.php
 
-Displays a media item
-
-TODO:
--->
 <?php
 	include "header.php";
 	include_once "function.php";
 	if(isset($_POST['id']) && isset($_POST['description'])){
 		$postid = $_POST['id'];
 		$postdescription = $_POST['description'];
-		$query = "UPDATE media 
+		$query = "UPDATE media
 					SET description = '$postdescription '
 					WHERE id = $postid";
 		$result = mysqli_query($db, $query );
@@ -27,9 +21,9 @@ TODO:
 <script src="Scripts/AC_RunActiveContent.js" type="text/javascript"></script>
 <script language="Javascript">
 function saveEdits(id) {
-	//get the editable element
+
 	var editElem = document.getElementById("edit");
-	//get the edited element content
+
 	var newBody = editElem.innerHTML;
 	$.post("media.php",
 	{
@@ -50,16 +44,16 @@ if(isset($_GET['id'])) {
 	$query = "SELECT title, path, type, description, user_id, comments FROM media WHERE id='".$_GET['id']."'";
 	$result = mysqli_query($db, $query );
 	$result_row = mysqli_fetch_row($result);
-	
+
 	updateMediaTime($_GET['id']);
-	
+
 	$filename=$result_row[0];
-	$filepath=$result_row[1]; 
+	$filepath=$result_row[1];
 	$type=$result_row[2];
 	$description = $result_row[3];
 	$submitter = $result_row[4];
 	$bool_com = $result_row[5];
-	
+
 	$query = "SELECT username FROM user WHERE id = $submitter";
 	$result = mysqli_query( $db,$query );
 	if (!$result){
@@ -67,23 +61,23 @@ if(isset($_GET['id'])) {
 	}
 	$result_row = mysqli_fetch_row($result);
 	$sname = $result_row[0];
-	
-	if(substr($type,0,5)=="image") //view image
+
+	if(substr($type,0,5)=="image")
 	{
 		echo "<p>Viewing Picture: ";
 		echo $filename;
 		echo "</br>Submitted by: <a href=\"user.php?id=$submitter\">$sname</a>";
 		echo "</p><img src='".$filepath."'/>";
 	}
-	else //view movie
-	{	
+	else
+	{
 ?>
 	<p>Viewing Video:<?php echo $filename;?></p>
-	<?php echo "Submitted by: <a href=\"user.php?id=$submitter\">$sname</a>";  ?>   
+	<?php echo "Submitted by: <a href=\"user.php?id=$submitter\">$sname</a>";  ?>
     <object id="MediaPlayer" width=320 height=286 classid="CLSID:22D6f312-B0F6-11D0-94AB-0080C74C7E95" standby="Loading Windows Media Player components…" type="application/x-oleobject" codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112">
 
 <param name="filename" value="<?php echo $filename?>">
-		
+
 
 <param name="Showcontrols" value="True">
 <param name="autoStart" value="True">
@@ -92,21 +86,21 @@ if(isset($_GET['id'])) {
 
 </object>
 
-          
-          
-          
-       
-              
+
+
+
+
+
 <?php
 	}
 	$vid_id = $_GET['id'];
 	subscribe($submitter);
 	favorite($vid_id);
 	playlists($vid_id);
-	$query = "SELECT user_id FROM media WHERE id='".$_GET['id']."'"; 
+	$query = "SELECT user_id FROM media WHERE id='".$_GET['id']."'";
 	$result = mysqli_query($db,$query);
 	if (!$result){
-		// query failed, should never happen outside of early testing
+
 	   die ("Could not query the media table in the database: <br />". mysqli_error($db));
 	}
 	$result_row = mysqli_fetch_row($result);
@@ -117,20 +111,20 @@ if(isset($_GET['id'])) {
 	echo "<p>Description:</br></p><p>";
 	if($owner)
 	{
-		if(isset($_GET['edit'])) 
+		if(isset($_GET['edit']))
 			echo "<div name= \"edit\" id=\"edit\" contenteditable=\"true\">";
 		if(!empty($description))
 			echo $description;
 		else
 			echo "You have not set a description.";
-		if(isset($_GET['edit'])) 
+		if(isset($_GET['edit']))
 			echo "</div>";
 		echo "</p>";
 		if(!isset($_GET['edit']))
 			echo "<p><a href=\"?id=".$_GET['id']."&edit=1\">Click to edit the description!</a></p>";
 		else
 			echo "<input type=\"button\" value=\"Save\" onclick=\"saveEdits(".$_GET['id'].")\"/>";
-		//tag stuff
+
 		echo "</br>Tags:</br>";
 		$query = "SELECT id, tag FROM tag WHERE video_id = $vid_id";
 		$result = mysqli_query($db,$query);
@@ -167,10 +161,10 @@ if(isset($_GET['id'])) {
 		{
 			echo "<form method=\"post\" action=\"media.php?id=$vid_id&tags=0\"><input type=\"submit\" name=\"submit\" value=\"+\"/></form>";
 		}
-		echo "</br>";	
+		echo "</br>";
 	}
 
-	else	
+	else
 	{
 		if(!empty($description))
 			echo $description;
@@ -186,7 +180,7 @@ if(isset($_GET['id'])) {
 		<p>Toggle Comments:</p>
 		<input type="submit" name="submit" value="<?php if($bool_com)
 			echo "Disable";
-		else	
+		else
 			echo "Enable";?>">
 		</form>
 		<?php
@@ -221,20 +215,20 @@ if(isset($_GET['id'])) {
 			$result_row2 = mysqli_fetch_row($result2);
 			$uname = $result_row2[0];
 			?>
-			<tr valign="top">			
+			<tr valign="top">
 				<td>
-					<?php 
+					<?php
 						echo $uname;
 					?>
 				</td>
 				<td>
-					<?php 
+					<?php
 						echo $c_time;
 					?>
 					</br>
 				</td>
 				<td>
-					<?php 
+					<?php
 						echo $content;
 					?>
 					</br></br>
@@ -255,7 +249,7 @@ if(isset($_GET['result']))
 	if($res > 0 && $res <= 4)
 		echo "File error. File was not uploaded";
 	else if($res == 5)
-		echo "A file that you uploaded has the same name, try changing the filename. File was not 	
+		echo "A file that you uploaded has the same name, try changing the filename. File was not
 			uploaded.";
 	else if($res == 6)
 		echo "Failed to move file from temporary directory. File was not uploaded.";

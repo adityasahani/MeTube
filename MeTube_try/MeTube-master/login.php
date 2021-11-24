@@ -1,11 +1,5 @@
-<!-- 
-login.php
 
-Login page
-
-TODO:	
--->
-<?php 
+<?php
 include 'header.php';
 
 include_once "function.php";
@@ -15,26 +9,25 @@ if(isset($_POST['submit'])) {
 			$login_error = "One or more fields are missing.";
 		}
 		else {
-			$check = user_pass_check($_POST['username'],$_POST['password']); // Call functions from function.php
+			$check = user_pass_check($_POST['username'],$_POST['password']);
 			if($check == 1) {
 				$login_error = "User ".$_POST['username']." not found.";
 			}
 			elseif($check==2) {
-				$login_error = "Incorrect password.";
+				$login_error = "Incorrect Username/password.";
 			}
 			else if($check==0){
-				$_SESSION['username']=$_POST['username']; //Set the $_SESSION['username']
+				$_SESSION['username']=$_POST['username'];
 				$_SESSION['id'] = user_get_id($_POST['username']);
 				header('Location: index.php');
-			}		
+			}
 		}
 }
 
 
- 
+
 ?>
 <style>
-/* Override default */
 @media (min-width: 1200px) {
   .container {
     width: 400px;

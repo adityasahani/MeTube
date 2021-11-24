@@ -1,10 +1,5 @@
-<!--
-register.php
 
-Register a new user
-
-TODO:
--->
+<?php error_reporting(0); ?>
 <?php
 include 'header.php';
 
@@ -18,7 +13,7 @@ if(isset($_POST['submit'])) {
 	else {
 		$check = user_exist_check($username, $_POST['password1']);
 		if($check == 1){
-			//echo "Register succeeds";
+
 			$_SESSION['username']=$username;
 			$id = user_get_id($username);
 			$_SESSION['id']=$id;
@@ -32,7 +27,6 @@ if(isset($_POST['submit'])) {
 
 ?>
 <style>
-/* Override default */
 .container {
     width: 400px;
 }

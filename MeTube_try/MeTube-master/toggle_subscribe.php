@@ -2,11 +2,6 @@
 include_once "function.php";
 session_start();
 
-/******************************************************
-*
-* upload document from user
-*
-*******************************************************/
 
 $sub_id =$_GET['id'];
 global $db;
@@ -28,7 +23,7 @@ else
 						"'$sub_id', '".$_SESSION['id']."')";
 }
 $insert = mysqli_query(  $db, $query )
-			or die ("Could not update the media table: <br />". mysqli_error( $db));	
+			or die ("Could not update the media table: <br />". mysqli_error( $db));
 ?>
 
 <meta http-equiv="refresh" content="0;url=user.php?id=<?php echo $sub_id;?>">

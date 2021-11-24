@@ -2,11 +2,7 @@
 include_once "function.php";
 session_start();
 
-/******************************************************
-*
-* upload document from user
-*
-*******************************************************/
+
 
 global $db;
 $vid_id =$_GET['v_id'];
@@ -30,8 +26,8 @@ $comment =mysqli_real_escape_string($db, $_POST['comment']);
 $query = "insert into comment(video_id,user_id,content,creation_datetime) values(".
 			"'$vid_id', '$user_id', '$comment', NOW())";
 $insert = mysqli_query(  $db, $query )
-			or die ("Could not insert into the comment table: <br />". mysqli_error( $db));	
+			or die ("Could not insert into the comment table: <br />". mysqli_error( $db));
 }
 ?>
 
-<meta http-equiv="refresh" content="0;url=media.php?id=<?php echo $vid_id;?>"> 
+<meta http-equiv="refresh" content="0;url=media.php?id=<?php echo $vid_id;?>">

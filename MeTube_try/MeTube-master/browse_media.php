@@ -11,10 +11,10 @@ function saveDownload(id)
 	{
        id: id,
 	},
-	function(message) 
+	function(message)
     { }
  	);
-} 
+}
 </script>
 <title>Media browse</title>
 </head>
@@ -22,7 +22,6 @@ function saveDownload(id)
 <body>
 <?php
 	global $db;
-	//searching
 	$search_query = $_GET["search"];
 	$category_query = $_GET["category"];
 	if($search_query == ""){
@@ -32,7 +31,7 @@ function saveDownload(id)
 	}
 	else{
 		$all_search_query = explode(" ", $search_query);
-		$query = "SELECT DISTINCT media.id, media.title, media.path 
+		$query = "SELECT DISTINCT media.id, media.title, media.path
 			FROM media
 			LEFT JOIN user
 			ON media.user_id = user.id
@@ -75,7 +74,7 @@ function saveDownload(id)
 <div class="container">
   <div class="jumbotron">
     <h2 style="text:center"><b>
-    	<?php 
+    	<?php
     	echo "All media";
     	if($category_query != "" AND $category_query != "All"){
     		echo " in the category $category_query";
@@ -86,8 +85,8 @@ function saveDownload(id)
     	?>
     </b></h2>
 		<?php
-			while ($result_row = mysqli_fetch_row($result)) //filename, username, type, mediaid, path
-			{ 
+			while ($result_row = mysqli_fetch_row($result))
+			{
 				$media_id = $result_row[0];
 				$media_title = $result_row[1];
 				$path = $result_row[2];
@@ -99,7 +98,7 @@ function saveDownload(id)
 				</a>
 			</td>
 			<td width="15%">
-				<img src="<?php echo $path; ?>" class="img-responsive img-thumbnail" alt="<?php echo $media_title; ?>">
+				<video src="<?php echo $path ?>" class="img-responsive img-thumbnail" preload="metadata "alt="<?php echo $media_title; ?>">
 			</td>
 			</table>
         	<?php

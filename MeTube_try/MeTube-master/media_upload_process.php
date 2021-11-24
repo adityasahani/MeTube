@@ -1,24 +1,12 @@
-<!-- 
-media_upload_process.php
 
-Uploads media
-
-TODO:
--->
 <?php
 include_once "function.php";
 session_start();
 
-/******************************************************
-*
-* upload document from user
-*
-*******************************************************/
 
 $username=$_SESSION['username'];
 $user_id=$_SESSION['id'];
 global $db;
-//Create Directory if doesn't exist
 if(!file_exists('uploads/')){
 	mkdir('uploads/');
 	chmod('uploads', 0755);
@@ -28,7 +16,7 @@ if(!file_exists($dirfile))
 	mkdir($dirfile);
 	chmod($dirfile, 0755);
 	if($_FILES["file"]["error"] > 0 )
-	{ 	$result=$_FILES["file"]["error"];} //error from 1-4
+	{ 	$result=$_FILES["file"]["error"];}
 	else
 	{
 		$upfile = $dirfile.urlencode($_FILES["file"]["name"]);
@@ -39,18 +27,18 @@ if(!file_exists($dirfile))
 		}
 	  if(file_exists($upfile))
 	  {
-	  	$result="5"; //The file has been uploaded.
+	  	$result="5";
 	  }
 	  else{
 			if(is_uploaded_file($_FILES["file"]["tmp_name"]))
 			{
 				if(!move_uploaded_file($_FILES["file"]["tmp_name"],$upfile))
 				{
-					$result="6"; //Failed to move file from temporary directory
+					$result="6";
 				}
-				else /*Successfully upload file*/
+				else
 				{
-					//insert into media table
+
 					$insert = "insert into media(title, user_id, type, path,category,description,comments)".
 							  "values(
 							  	'".$_POST["title"]."',
@@ -69,19 +57,17 @@ if(!file_exists($dirfile))
 					$queryresult = mysqli_query($db,$query);
 					if(!$queryresult)
 						  die("Query into Media error in media_upload_process.php\n\nSQL was:\n$query\n\n" .mysqli_error($db));
-					$result_row = mysqli_fetch_row($queryresult); 
+					$result_row = mysqli_fetch_row($queryresult);
 					$media_id = $result_row[0];
 					do_tags($_POST["tags"], $media_id);
 				}
 			}
-			else  
+			else
 			{
-					$result="7"; //upload file failed
+					$result="7";
 			}
 		}
 	}
-	
-	//You can process the error code of the $result here.
 if(isset($media_id))
 {
 ?>

@@ -1,10 +1,4 @@
-<!--
-user.php
 
-User's homepage.  When the user is own his own page, he can edit it.
-
-TODO:	Add cancel when editing
--->
 <?php
 	include "header.php";
 	function noTabSpecified(){

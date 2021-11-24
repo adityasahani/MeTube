@@ -1,11 +1,4 @@
-<!--
-index.php
 
-Main Page
-
-
-TODO:
--->
 <link rel="stylesheet" href="test.css">
 <body>
 <?php include 'header.php';?>

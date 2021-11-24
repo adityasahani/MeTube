@@ -1,17 +1,11 @@
-<!-- 
-global_includes.php
 
-Should be the first part of every page.  Included in header.php
-
-TODO:
--->
 
 <!DOCTYPE html>
 
-<!-- Global CSS Includes -->
+
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 
-<!-- Global js Includes -->
+
 <script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <?php include_once "function.php"; ?>

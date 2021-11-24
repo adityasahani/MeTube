@@ -5,7 +5,7 @@ if(isset($_GET['id'])){
 	$playlist_id = $_GET['id'];
 }else{
 	header('Location: index.php');
-} 
+}
 if(isset($_POST['delete_playlist_media_id'])){
 	$video_id = $_POST['delete_playlist_media_id'];
 	$query = "DELETE FROM playlist_entry WHERE video_id = '$video_id'";

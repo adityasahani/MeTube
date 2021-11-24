@@ -1,17 +1,11 @@
-<!-- 
-media.php
 
-Displays a media item
-
-TODO:
--->
 <?php
 	include "header.php";
 	include_once "function.php";
 	if(isset($_POST['id']) && isset($_POST['description'])){
 		$postid = $_POST['id'];
 		$postdescription = $_POST['description'];
-		$query = "UPDATE media 
+		$query = "UPDATE media
 					SET description = '$postdescription '
 					WHERE id = $postid";
 		$result = mysqli_query($db, $query );
@@ -34,8 +28,8 @@ TODO:
    	margin: 0 auto;
 }
 </style>
-	<body> 
-	
+	<body>
+
 <div class="container">
   <div class="jumbotron">
 	<?php
@@ -44,16 +38,16 @@ if(isset($_GET['id'])) {
 	$query = "SELECT title, path, type, description, user_id, comments FROM media WHERE id='".$_GET['id']."'";
 	$result = mysqli_query($db, $query );
 	$result_row = mysqli_fetch_row($result);
-	
+
 	updateMediaTime($_GET['id']);
-	
+
 	$filename=$result_row[0];
-	$filepath=$result_row[1]; 
+	$filepath=$result_row[1];
 	$type=$result_row[2];
 	$description = $result_row[3];
 	$submitter = $result_row[4];
 	$bool_com = $result_row[5];
-	
+
 	$query = "SELECT username FROM user WHERE id = $submitter";
 	$result = mysqli_query( $db,$query );
 	if (!$result){
@@ -63,13 +57,13 @@ if(isset($_GET['id'])) {
 	$sname = $result_row[0];
 	$ucasename = ucfirst($sname);
 	echo "<h1>$filename by <a href =\"user.php?id=$submitter\">$ucasename</a></h1>";
-	
-	if(substr($type,0,5)=="image") //view image
+
+	if(substr($type,0,5)=="image")
 	{?>
 		<img id="mainimage" src="<?php echo $filepath;?>" class="img-responsive" alt="<?php echo $filename;?>">
 	<?php }
-	else //view movie
-	{	
+	else
+	{
 ?>
     <video id="mainvideo" width="580" controls>
  		<source src="<?php echo $filepath?>" type="video/mp4">
@@ -79,17 +73,17 @@ if(isset($_GET['id'])) {
 	<br />
 <?php
 	}
-	
+
 	$vid_id = $_GET['id'];
 	echo "<br>";
 	favorite($vid_id);
 	echo "<br>";
 	echo "<br>";
 	playlists($vid_id);
-	$query = "SELECT user_id FROM media WHERE id='".$_GET['id']."'"; 
+	$query = "SELECT user_id FROM media WHERE id='".$_GET['id']."'";
 	$result = mysqli_query($db,$query);
 	if (!$result){
-		// query failed, should never happen outside of early testing
+
 	   die ("Could not query the media table in the database: <br />". mysqli_error($db));
 	}
 	$result_row = mysqli_fetch_row($result);
@@ -97,23 +91,23 @@ if(isset($_GET['id'])) {
 		$owner = true;
 	else
 		$owner = false;
-	
+
 	if($owner)
 	{
-		if(isset($_GET['edit'])) 
+		if(isset($_GET['edit']))
 			echo "<div name= \"edit\" id=\"edit\" contenteditable=\"true\">";
 		if(!empty($description))
 			echo "<b>Media Description:</b><br /><p id=\"description\">$description</p>";
 		else
 			echo "You have not set a description.";
-		if(isset($_GET['edit'])) 
+		if(isset($_GET['edit']))
 			echo "</div>";
 		echo "</p>";
 		if(!isset($_GET['edit']))
 			echo "<p><a href=\"?id=".$_GET['id']."&edit=1\">Click to edit the description!</a></p>";
 		else
 			echo "<input type=\"button\" value=\"Save\" onclick=\"saveEdits(".$_GET['id'].")\"/>";
-		//tag stuff
+
 		echo "</br>Tags:</br>";
 		$query = "SELECT id, tag FROM tag WHERE video_id = $vid_id";
 		$result = mysqli_query($db,$query);
@@ -150,10 +144,10 @@ if(isset($_GET['id'])) {
 		{
 			echo "<form method=\"post\" action=\"media.php?id=$vid_id&tags=0\"><input type=\"submit\" name=\"submit\" value=\"+\"/></form>";
 		}
-		echo "</br>";	
+		echo "</br>";
 	}
 
-	else	
+	else
 	{
 		if(!empty($description))
 			echo "<b>Media Description:</b><p id=\"description\">$description</p>";
@@ -167,10 +161,10 @@ if(isset($_GET['id'])) {
 		echo "<form method=\"post\" action=\"toggle_comments.php?id=".$_GET['id']."\" >"
 		?>
 		<p>Toggle Comments:</p>
-		<?php echo "<input type=\"submit\" name=\"submit\" value=\""; 
+		<?php echo "<input type=\"submit\" name=\"submit\" value=\"";
 		if($bool_com)
 			echo "Disable";
-		else	
+		else
 			echo "Enable";?>
 		"></form>
 		<?php
@@ -200,7 +194,7 @@ if(isset($_GET['id'])) {
 				<td id="comment_cell">
 					<?php
 					if(user_is_logged_in() && $u_id == $_SESSION['id'])
-					{		
+					{
 						echo "<form method=\"post\" action=\"comment_process.php?v_id=".$_GET['id']."\" >";
 						?>
 						<input type="hidden" name="comment_id" value="<?php echo $comment_id; ?>">
@@ -216,7 +210,7 @@ if(isset($_GET['id'])) {
 					<em>Posted at: <?php echo $c_time ?> </em>
 				</td>
 			</tr>
-			
+
 <?php
 
 		}
@@ -244,7 +238,7 @@ if(isset($_GET['result']))
 	if($res > 0 && $res <= 4)
 		echo "File error. File was not uploaded";
 	else if($res == 5)
-		echo "A file that you uploaded has the same name, try changing the filename. File was not 	
+		echo "A file that you uploaded has the same name, try changing the filename. File was not
 			uploaded.";
 	else if($res == 6)
 		echo "Failed to move file from temporary directory. File was not uploaded.";

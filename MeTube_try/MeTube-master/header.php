@@ -1,12 +1,3 @@
-<!-- 
-header.php
-
-Should be included in the top of almost every page.
-Starts the session
-Gives options for logging in and out.
-
-TODO: Login/Logout button does not update until page is refreshed (caching issue)
--->
 
 <?php
 include 'global_includes.php';
@@ -38,12 +29,12 @@ session_start();
 			 <option value="News">News</option>
 			 <option value="Education">Education</option>
 			 <option value="Comedy">Comedy</option>
-		   </select> 
+		   </select>
            <input type="text" name="search" class="form-control" placeholder="Search">
          </div>
 	     <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
        </form>
-    
+
     <ul class="nav navbar-nav navbar-right">
 <?php
 	if(!user_is_logged_in()){?>
@@ -72,7 +63,7 @@ session_start();
       <span class="glyphicon glyphicon-log-out" ></span> Log Out
       </button>
     <form action="index.php" method="post" name="logout" id="logout_form"></form>
-  	
+
 		<?php
   	}?>
       </ul>

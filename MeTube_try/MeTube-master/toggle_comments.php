@@ -2,11 +2,6 @@
 include_once "function.php";
 session_start();
 
-/******************************************************
-*
-* upload document from user
-*
-*******************************************************/
 
 $v_id =$_GET['id'];
 global $db;
@@ -20,11 +15,11 @@ if($comment)
 	$comment = FALSE;
 else
 	$comment = TRUE;
-$query = "UPDATE media 
+$query = "UPDATE media
 			SET comments = '$comment'
 			WHERE id = $v_id";
 $insert = mysqli_query(  $db, $query )
-			or die ("Could not update the media table: <br />". mysqli_error( $db));	
+			or die ("Could not update the media table: <br />". mysqli_error( $db));
 ?>
 
 <meta http-equiv="refresh" content="0;url=media.php?id=<?php echo $v_id;?>">

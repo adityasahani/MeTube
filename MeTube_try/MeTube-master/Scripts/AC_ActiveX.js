@@ -1,5 +1,4 @@
-//v1.2
-//Copyright 2006 Adobe Macromedia Software LLC and its licensors. All rights reserved.
+
 function AC_AX_RunContent(){
   var ret = AC_AX_GetArgs(arguments);
   AC_Generateobj(ret.objAttrs, ret.params, ret.embedAttrs);

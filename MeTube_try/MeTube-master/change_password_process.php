@@ -2,12 +2,6 @@
 include_once "function.php";
 session_start();
 
-/******************************************************
-*
-* Change user password
-*
-*******************************************************/
-
 $user_id=$_SESSION['id'];
 global $db;
 $current = $_POST['current'];
@@ -39,4 +33,4 @@ else
 }
 ?>
 
-<meta http-equiv="refresh" content="0;url=change_password.php?return=<?php echo $return;?>">  
+<meta http-equiv="refresh" content="0;url=change_password.php?return=<?php echo $return;?>">

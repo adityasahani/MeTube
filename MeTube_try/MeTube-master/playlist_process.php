@@ -1,19 +1,8 @@
-<!-- 
-media_upload_process.php
 
-Uploads media
-
-TODO:
--->
 <?php
 include_once "function.php";
 session_start();
 
-/******************************************************
-*
-* upload document from user
-*
-*******************************************************/
 global $db;
 if(isset($_POST['remove']))
 {
@@ -26,7 +15,7 @@ if(isset($_POST['remove']))
 		die("<br>Could not remove from playlist_entry table in the database: <br />". mysqli_error($db));
 	}
 	?>
-	<meta http-equiv="refresh" content="0;url=media.php?id=<?php echo $vid_id;?>&playlists=1"> 
+	<meta http-equiv="refresh" content="0;url=media.php?id=<?php echo $vid_id;?>&playlists=1">
 	<?php
 }
 else if(isset($_POST['add']))
@@ -40,7 +29,7 @@ else if(isset($_POST['add']))
 		die("<br>Could not insert into playlist_entry table in the database: <br />". mysqli_error($db));
 	}
 	?>
-	<meta http-equiv="refresh" content="0;url=media.php?id=<?php echo $vid_id;?>&playlists=1"> 
+	<meta http-equiv="refresh" content="0;url=media.php?id=<?php echo $vid_id;?>&playlists=1">
 	<?php
 }
 else if(isset($_POST['delete_playlist']))

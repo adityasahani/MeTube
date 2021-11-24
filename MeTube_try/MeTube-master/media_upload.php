@@ -1,10 +1,4 @@
-<!-- 
-media_upload.php
 
-Uploads media
-
-TODO:
--->
 <?php
 include 'header.php';
 ?>
@@ -14,7 +8,7 @@ include 'header.php';
 <body>
 
 <style>
-/* Override default */
+
 .container {
     width: 400px;
 }
@@ -23,8 +17,8 @@ include 'header.php';
   <form class="form-signin" method="post" action="media_upload_process.php" enctype="multipart/form-data">
     <h2 class="form-signin-heading">Upload A File (Max 20MB)</h2>
     <input type="hidden" name="MAX_FILE_SIZE" value="20971520" />
-    
-    <label for="file">Add a Media:</label> 
+
+    <label for="file">Add a Media:</label>
     <input name="file" type="file" size="50" />
 
     <label for="title">Title:</label>
@@ -59,7 +53,7 @@ include 'header.php';
     <label class="radio-inline"><input type="radio" name="comments" value="0">Disabled</label>
 
     <button class="btn btn-lg btn-primary btn-block" name="submit" type="submit" value="Upload"/>Upload</button>
-  </form> 
+  </form>
 </div>
 </body>
 </html>
